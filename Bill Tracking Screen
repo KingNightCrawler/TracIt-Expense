@@ -1,0 +1,31 @@
+// screens/BillScreen.js
+import React, { useState } from 'react';
+import { View, TextInput, Button, FlatList, Text } from 'react-native';
+
+const BillScreen = () => {
+  const [billName, setBillName] = useState('');
+  const [bills, setBills] = useState([]);
+
+  const addBill = () => {
+    setBills([...bills, { name: billName, id: Math.random().toString() }]);
+    setBillName('');
+  };
+
+  return (
+    <View>
+      <TextInput
+        placeholder="Enter bill name"
+        value={billName}
+        onChangeText={setBillName}
+      />
+      <Button title="Add Bill" onPress={addBill} />
+      <FlatList
+        data={bills}
+        renderItem={({ item }) => <Text>{item.name}</Text>}
+        keyExtractor={item => item.id}
+      />
+    </View>
+  );
+};
+
+export default BillScreen;
